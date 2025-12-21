@@ -144,6 +144,142 @@
     .footnote a:hover { text-decoration: underline; }
 
 </style>
+  <script>
+    const form = document.getElementById('signupForm');
+
+const fullName = document.getElementById('fullName');
+const email = document.getElementById('email');
+const password = document.getElementById('password');
+const confirmPassword = document.getElementById('confirmPassword');
+const username = document.getElementById('username');
+const terms = document.getElementById('terms');
+
+const nameError = document.getElementById('nameError');
+const emailError = document.getElementById('emailError');
+const passwordError = document.getElementById('passwordError');
+const confirmError = document.getElementById('confirmError');
+const usernameError = document.getElementById('usernameError');
+const termsError = document.getElementById('termsError');
+
+const strengthBar = document.getElementById('strengthBar');
+
+function passwordStrength(pw) {
+  let score = 0;
+  if (!pw) return 0;
+  if (pw.length >= 8) score += 1;
+  if (/[A-Z]/.test(pw)) score += 1;
+  if (/[a-z]/.test(pw)) score += 1;
+  if (/[0-9]/.test(pw)) score += 1;
+  if (/[^A-Za-z0-9]/.test(pw)) score += 1;
+  return Math.min(score, 5);
+}
+
+function updateStrengthUI(score) {
+  const percent = (score / 5) * 100;
+  strengthBar.style.setProperty('--w', `${percent}%`);
+  // Use ::after width via inline style
+  strengthBar.style.setProperty('position', 'relative');
+  strengthBar.style.setProperty('--width', `${percent}%`);
+  strengthBar.style.setProperty('background', '#1f2937');
+  strengthBar.style.setProperty('overflow', 'hidden');
+  strengthBar.style.setProperty('borderRadius', '6px');
+  strengthBar.style.setProperty('height', '6px');
+  strengthBar.querySelectorAll = null;
+  strengthBar.style.setProperty('boxShadow', 'none');
+  strengthBar.style.setProperty('transition', 'none');
+  strengthBar.style.setProperty('--dummy', '0');
+  // Fallback: update ::after via direct style
+  strengthBar.style.setProperty('--after-width', `${percent}%`);
+  strengthBar.style.setProperty('backgroundImage', `linear-gradient(90deg, #1f2937 0%, #1f2937 100%)`);
+  strengthBar.style.setProperty('backgroundSize', `${percent}% 100%`);
+  strengthBar.style.setProperty('backgroundRepeat', 'no-repeat');
+}
+
+password.addEventListener('input', () => {
+  const score = passwordStrength(password.value);
+  // Simple width update using inline gradient trick
+  const percent = (score / 5) * 100;
+  strengthBar.style.backgroundImage = `linear-gradient(90deg, #22c55e ${percent}%, #1f2937 ${percent}%)`;
+});
+
+function clearErrors() {
+  [nameError, emailError, passwordError, confirmError, usernameError, termsError]
+    .forEach(e => e.textContent = '');
+}
+
+function validate() {
+  clearErrors();
+  let valid = true;
+
+  if (fullName.value.trim().length < 2) {
+    nameError.textContent = 'Vui lòng nhập họ tên hợp lệ.';
+    valid = false;
+  }
+
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  if (!emailPattern.test(email.value.trim())) {
+    emailError.textContent = 'Email không hợp lệ.';
+    valid = false;
+  }
+
+  const pw = password.value;
+  const score = passwordStrength(pw);
+  if (score < 3) {
+    passwordError.textContent = 'Mật khẩu yếu. Hãy dùng chữ hoa, chữ thường, số và ký tự đặc biệt.';
+    valid = false;
+  }
+
+  if (confirmPassword.value !== pw) {
+    confirmError.textContent = 'Mật khẩu xác nhận không khớp.';
+    valid = false;
+  }
+
+  const usernamePattern = /^[a-zA-Z0-9_.-]{3,20}$/;
+  if (!usernamePattern.test(username.value.trim())) {
+    usernameError.textContent = 'Tên người dùng 3–20 ký tự, chỉ gồm chữ, số, ., _, -';
+    valid = false;
+  }
+
+  if (!terms.checked) {
+    termsError.textContent = 'Bạn cần đồng ý với điều khoản.';
+    valid = false;
+  }
+
+  return valid;
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (!validate()) return;
+
+  const payload = {
+    fullName: fullName.value.trim(),
+    email: email.value.trim(),
+    password: password.value, // Lưu ý: luôn mã hóa khi gửi lên server (HTTPS + hash)
+    username: username.value.trim(),
+    termsAccepted: true
+  };
+
+  // Demo: giả lập gọi API
+  try {
+    // Thay bằng endpoint thật của bạn, ví dụ: /api/auth/signup
+    // const res = await fetch('/api/auth/signup', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(payload)
+    // });
+    // const data = await res.json();
+    // if (!res.ok) throw new Error(data.message || 'Đăng ký thất bại');
+
+    alert('Đăng ký thành công! (Demo)');
+    form.reset();
+  } catch (err) {
+    alert('Có lỗi xảy ra khi đăng ký. Vui lòng thử lại.');
+    console.error(err);
+  }
+});
+
+  </script>
 <body>
   <main class="container">
     <form id="signupForm" class="card" novalidate>
@@ -200,3 +336,4 @@
   <script src="app.js"></script>
 </body>
 </html>
+
