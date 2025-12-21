@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MindX Cinema</title>
+  <style>
+    :root {
+  --bg: #0f0f0f;
+  --text: #f3f4f6;
+  --accent: #ef4444;
+  --muted: #9ca3af;
+  --btn-bg: #1f2937;
+  --btn-hover: #374151;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+header {
+  padding: 20px;
+  text-align: center;
+  background: #111827;
+  border-bottom: 1px solid #222;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+}
+
+.main-poster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  max-width: 1000px;
+  margin-bottom: 32px;
+}
+
+.poster {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+}
+
+.info {
+  flex: 1;
+  min-width: 280px;
+}
+
+.info h2 {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.info p {
+  font-size: 16px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.btn {
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.primary {
+  background: var(--accent);
+  color: white;
+}
+.primary:hover {
+  background: #dc2626;
+}
+
+.secondary {
+  background: var(--btn-bg);
+  color: var(--text);
+}
+.secondary:hover {
+  background: var(--btn-hover);
+}
+
+.banner img {
+  width: 100%;
+  max-width: 1000px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+}
+
+footer {
+  text-align: center;
+  padding: 16px;
+  font-size: 14px;
+  color: var(--muted);
+  border-top: 1px solid #222;
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1 class="logo">MindX Cinema</h1>
+  </header>
+
+  <main class="hero">
+    <section class="main-poster">
+      <img src="main-img.png" alt="Captain America: Brave New World" class="poster" />
+      <div class="info">
+        <h2>Captain America: Brave New World</h2>
+        <p>
+          Sau khi gặp Tổng thống mới đắc cử Thaddeus Ross, Sam rơi vào một sự kiện quốc tế nghiêm trọng.
+          Anh phải khám phá âm mưu toàn cầu trước khi kẻ chủ mưu khiến cả thế giới “thấy đỏ”.
+        </p>
+        <div class="buttons">
+          <a href="#" class="btn primary">Xem ngay</a>
+          <a href="#" class="btn secondary">Xem thông tin</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="banner">
+      <img src="Banner.png" alt="Các nhân vật trong phim" />
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 MindX Cinema</p>
+  </footer>
+</body>
+</html>
