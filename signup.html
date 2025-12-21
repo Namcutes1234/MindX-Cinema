@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MindX Cinema - Sign up</title>
+</head>
+<style>
+        :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #22c55e;
+      --error: #ef4444;
+      --border: #1f2937;
+    }
+    
+    * { box-sizing: border-box; }
+    
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 10% 10%, #0b1020 0%, var(--bg) 45%, #0b1020 100%);
+      color: var(--text);
+    }
+    
+    .container {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+    
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      backdrop-filter: blur(8px);
+    }
+    
+    h1 {
+      margin: 0 0 16px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+    
+    .form-group {
+      margin-bottom: 16px;
+    }
+    
+    .form-group.inline {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text);
+      font-weight: 600;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #0b1220;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    
+    input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+    }
+    
+    .checkbox {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+    }
+    
+    .helper {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    
+    .strength {
+      height: 6px;
+      border-radius: 6px;
+      background: #1f2937;
+      margin-top: 8px;
+      overflow: hidden;
+      position: relative;
+    }
+    .strength::after {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 0%;
+      background: linear-gradient(90deg, #ef4444, #f59e0b, #22c55e);
+      transition: width 0.25s ease;
+    }
+    
+    .error {
+      display: block;
+      margin-top: 6px;
+      color: var(--error);
+      font-size: 12px;
+    }
+    
+    .btn {
+      width: 100%;
+      padding: 12px 14px;
+      background: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.08s ease, box-shadow 0.2s ease;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3); }
+    .btn:active { transform: translateY(0); }
+    
+    .footnote {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .footnote a { color: #93c5fd; text-decoration: none; }
+    .footnote a:hover { text-decoration: underline; }
+
+</style>
+<body>
+  <main class="container">
+    <form id="signupForm" class="card" novalidate>
+      <h1>Đăng ký</h1>
+
+      <div class="form-group">
+        <label for="fullName">Họ và tên</label>
+        <input type="text" id="fullName" name="fullName" placeholder="Ví dụ: Nguyễn Văn A" required />
+        <small class="error" id="nameError"></small>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="ví dụ@domain.com" required />
+        <small class="error" id="emailError"></small>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Mật khẩu</label>
+        <input type="password" id="password" name="password" placeholder="Tối thiểu 8 ký tự" required minlength="8" />
+        <small class="helper">Ít nhất 8 ký tự, gồm chữ hoa, chữ thường, số.</small>
+        <div class="strength" id="strengthBar" aria-hidden="true"></div>
+        <small class="error" id="passwordError"></small>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Xác nhận mật khẩu</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Nhập lại mật khẩu" required />
+        <small class="error" id="confirmError"></small>
+      </div>
+
+      <div class="form-group">
+        <label for="username">Tên người dùng</label>
+        <input type="text" id="username" name="username" placeholder="Tên hiển thị/đăng nhập" required />
+        <small class="error" id="usernameError"></small>
+      </div>
+
+      <div class="form-group inline">
+        <label class="checkbox">
+          <input type="checkbox" id="terms" name="terms" required />
+          <span>Tôi đồng ý với Điều khoản & Chính sách bảo mật</span>
+        </label>
+        <small class="error" id="termsError"></small>
+      </div>
+
+      <button type="submit" class="btn">Tạo tài khoản</button>
+
+      <p class="footnote">
+        Đã có tài khoản? <a href="/login">Đăng nhập</a>
+      </p>
+    </form>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
